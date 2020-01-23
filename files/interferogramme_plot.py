@@ -8,10 +8,11 @@ de Michelson dans le but d'etudier la transformée de Fourier et de comprendre
 comment la resolution spectrale est déterminée.
 """
 
-def readVectorsFromFile(filename):
-	x = np.loadtxt(filename, usecols=(0))
-	y = np.loadtxt(filename, usecols=(1))
-	return (x,y)
+def read_from_file(filename):
+    file = np.genfromtxt(filename, skip_header=18, skip_footer=1)
+    x = file[:1]
+    y = file[:2]
+    return (x,y) #J: J'ai chamgé la fonction np.loadtxt par la fonction np.genfromtxt (plus efficace)
 
 def generateHeNeInterferogram(xMin, xMax, N):
 	""" Genere un tableau de N valeurs equidistantes enntre xMin et xMax.
