@@ -148,7 +148,7 @@ plotCombinedFigures(x, y, w, s, left=100, right=800, title="Lumière Hg, resolut
 (w, f, s) = fourierTransformInterferogram(x,y)
 df = f[1] - f[0]
 dl = 0.500*0.500*df*1000
-plotCombinedFigures(x, y, w, s, left=400, right=700, title="Laser HeNe, resolution {0:0.2f} nm".format(dl))
+plotCombinedFigures(x, y, w, s, left=400, right=700, title="Lumière jaune, resolution {0:0.2f} nm".format(dl))
 
 
 plt.show() #J: À la fin pour afficher tous les graphiques en même temps
