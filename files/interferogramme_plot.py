@@ -10,8 +10,8 @@ comment la resolution spectrale est déterminée.
 
 def read_from_file(filename):
     file = np.genfromtxt(filename, skip_header=18, skip_footer=1)
-    x = file[:1]
-    y = file[:2]
+    x = file[:,1]
+    y = file[:,2]
     return (x,y) #J: J'ai chamgé la fonction np.loadtxt par la fonction np.genfromtxt (plus efficace)
 
 def generateHeNeInterferogram(xMin, xMax, N):
@@ -59,6 +59,8 @@ def fourierTransformInterferogram(x,y):
 	wavelengths = 1/frequencies  # Les fréquences en µm^-1 sont moins utiles que lambda en µm
 	return (wavelengths, frequencies, spectrum)
 
+
+
 def plotCombinedFigures(x, y, w, s, title="", left=400, right=800):
 	""""
 	On met l'interferogramme et le spectre sur la meme page.
@@ -66,55 +68,87 @@ def plotCombinedFigures(x, y, w, s, title="", left=400, right=800):
 	fig, (axes, axesFFT) = plt.subplots(2,1,figsize=(10, 7))
 	axes.plot(x, y, '-')
 	axes.set_title("Interferogramme")
-	axesFFT.plot(w*1000, abs(s), 'o-')
+	axesFFT.plot(w*1000, abs(s), '-')
 	axesFFT.set_xlim(left=left, right=right)
 	axesFFT.set_xlabel("Longueur d'onde [nm]")
 	axesFFT.set_title(title)
-	plt.show()
 
 
 # Basse resolution
-(x,y) = generateHeNeInterferogram(xMin=-10, xMax=10, N=200) # en microns
-(w, f, s)  = fourierTransformInterferogram(x,y)
-df = f[1]-f[0]
-dl = 0.6328*0.6328*df*1000 # x 1000 pour nm
-plotCombinedFigures(x,y,w,s,left=632.8-5*dl, right=632.8+5*dl, title="Spectre He-Ne basse resolution {0:0.2f} nm".format(dl))
+#(x,y) = generateHeNeInterferogram(xMin=-10, xMax=10, N=200) # en microns
+#(w, f, s)  = fourierTransformInterferogram(x,y)
+#df = f[1]-f[0]
+#dl = 0.6328*0.6328*df*1000 # x 1000 pour nm
+#plotCombinedFigures(x,y,w,s,left=632.8-5*dl, right=632.8+5*dl, title="Spectre He-Ne basse resolution {0:0.2f} nm".format(dl))
 
 # Haute resolution
 # Resolution ∆f = 1/(200 µm * 2000)
 # Resolution @ 632.8 nm : ∆lambda = 632.8^2 * ∆f car ∆lambda/lambda = ∆f/f.
-(x,y) = generateHeNeInterferogram(xMin=-100, xMax=100, N=2000) # en microns
-(w, f, s) = fourierTransformInterferogram(x,y)
-df = f[1]-f[0]
-dl = 0.6328*0.6328*df*1000
-plotCombinedFigures(x,y,w,s,left=632.8-5*dl, right=632.8+5*dl, title="Spectre He-Ne haute resolution {0:0.2f} nm".format(dl))
+#(x,y) = generateHeNeInterferogram(xMin=-100, xMax=100, N=2000) # en microns
+#(w, f, s) = fourierTransformInterferogram(x,y)
+#df = f[1]-f[0]
+#dl = 0.6328*0.6328*df*1000
+#plotCombinedFigures(x,y,w,s,left=632.8-5*dl, right=632.8+5*dl, title="Spectre He-Ne haute resolution {0:0.2f} nm".format(dl))
 
 
 # Tres haute resolution
 # Resolution ∆f = 1/(2000 µm * 2000)
 # Resolution @ 632.8 nm : ∆lambda = 632.8^2 * ∆f
-(x,y) = generateHeNeInterferogram(xMin=-1000, xMax=1000, N=20000) # en microns
-(w, f, s) = fourierTransformInterferogram(x,y)
-df = f[1]-f[0]
-dl = 0.6328*0.6328*df*1000
-plotCombinedFigures(x,y,w,s,left=632.8-5*dl, right=632.8+5*dl, title="Spectre He-Ne tres haute resolution {0:0.2f} nm".format(dl))
+#(x,y) = generateHeNeInterferogram(xMin=-1000, xMax=1000, N=20000) # en microns
+#(w, f, s) = fourierTransformInterferogram(x,y)
+#df = f[1]-f[0]
+#dl = 0.6328*0.6328*df*1000
+#plotCombinedFigures(x,y,w,s,left=632.8-5*dl, right=632.8+5*dl, title="Spectre He-Ne tres haute resolution {0:0.2f} nm".format(dl))
 
 
 # Hyper haute resolution
 # Resolution ∆f = 1/(20000 µm * 20000)
 # Resolution @ 632.8 nm : ∆lambda = 632.8^2 * ∆f
-(x,y) = generateHeNeInterferogram(xMin=-10000, xMax=10000, N=200000) # en microns
-(w, f, s) = fourierTransformInterferogram(x,y)
-df = f[1]-f[0]
-dl = 0.6328*0.6328*df*1000
-plotCombinedFigures(x,y,w,s,left=632.8-5*dl, right=632.8+5*dl, title="Spectre He-Ne hyper haute resolution {0:0.2f} nm".format(dl))
+#(x,y) = generateHeNeInterferogram(xMin=-10000, xMax=10000, N=200000) # en microns
+#(w, f, s) = fourierTransformInterferogram(x,y)
+#df = f[1]-f[0]
+#dl = 0.6328*0.6328*df*1000
+#plotCombinedFigures(x,y,w,s,left=632.8-5*dl, right=632.8+5*dl, title="Spectre He-Ne hyper haute resolution {0:0.2f} nm".format(dl))
 
 
 # Spectre de lumiere blanche
 # Resolution ∆f = 1/(20000 µm * 20000)
 # Resolution @ 500 nm : ∆lambda = 500^2 * ∆f
-(x,y) = generateWhiteLightInterferogram(xMin=-100, xMax=100, N=20000) # en microns
-(w, f, s)  = fourierTransformInterferogram(x,y)
-df = f[1]-f[0]
-dl = 0.500*0.500*df*1000 # resolution autour de 0.500 µm en nm
-plotCombinedFigures(x,y,w,s,left=0, right=2000, title="Spectre lumiere blanche, resolution {0:0.2f} nm".format(dl))
+#(x,y) = generateWhiteLightInterferogram(xMin=-100, xMax=100, N=20000) # en microns
+#(w, f, s)  = fourierTransformInterferogram(x,y)
+#df = f[1]-f[0]
+#dl = 0.500*0.500*df*1000 # resolution autour de 0.500 µm en nm
+#plotCombinedFigures(x,y,w,s,left=0, right=2000, title="Spectre lumiere blanche, resolution {0:0.2f} nm".format(dl))
+
+(x, y) = read_from_file("laser_he_ne_0.txt")
+(w, f, s) = fourierTransformInterferogram(x,y)
+df = f[1] - f[0]
+dl = 0.500*0.500*df*1000
+plotCombinedFigures(x, y, w, s, left=0, right=1000, title="Laser HeNe, resolution {0:0.2f} nm".format(dl))
+
+(x, y) = read_from_file("laser_he_ne_1.txt")
+(w, f, s) = fourierTransformInterferogram(x,y)
+df = f[1] - f[0]
+dl = 0.500*0.500*df*1000
+plotCombinedFigures(x, y, w, s, left=0, right=800, title="Laser HeNe, resolution {0:0.2f} nm".format(dl))
+
+(x, y) = read_from_file("lum_blanche_0.txt")
+(w, f, s) = fourierTransformInterferogram(x,y)
+df = f[1] - f[0]
+dl = 0.500*0.500*df*1000
+plotCombinedFigures(x, y, w, s, left=0, right=800, title="Lumière blanche, resolution {0:0.2f} nm".format(dl))
+
+(x, y) = read_from_file("lum_mercure_0.txt")
+(w, f, s) = fourierTransformInterferogram(x,y)
+df = f[1] - f[0]
+dl = 0.500*0.500*df*1000
+plotCombinedFigures(x, y, w, s, left=100, right=800, title="Lumière Hg, resolution {0:0.2f} nm".format(dl))
+
+(x, y) = read_from_file("lum_jaune_0.txt")
+(w, f, s) = fourierTransformInterferogram(x,y)
+df = f[1] - f[0]
+dl = 0.500*0.500*df*1000
+plotCombinedFigures(x, y, w, s, left=400, right=700, title="Laser HeNe, resolution {0:0.2f} nm".format(dl))
+
+
+plt.show() #J: À la fin pour afficher tous les graphiques en même temps
