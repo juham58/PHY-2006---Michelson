@@ -17,11 +17,11 @@ def read_from_file(filename):
 def plot_ocean_optics(filename, title, left, right):
 	file = np.genfromtxt(filename)
 	plt.figure(figsize=(10,7))
-	plt.title("".format(title))
+	plt.title("{}".format(title))
 	plt.plot(file[:,0],file[:,1])
 	plt.xlim(left=left, right=right)
 
-plot_ocean_optics("autre_lampe_sodium_faible.txt", "Ocean Optics lampe sodium faible", 400, 700)
+plot_ocean_optics("autre_lampe_sodium_faible.txt", "Ocean Optics lampe sodium faible", 580, 600)
 plot_ocean_optics("autre_lampe_sodium_forte.txt", "Ocean Optics lampe sodium forte", 400, 900)
 plot_ocean_optics("autre_Lazer_He_Ne.txt", "Ocean Optics laser He-Ne", 400, 900)
 plot_ocean_optics("autre_lumiere_blanche.txt", "Ocean Optics lumiere blanche", 400, 900)
@@ -148,7 +148,7 @@ dl = 0.500*0.500*df*1000
 (w, f, s) = fourierTransformInterferogram(x,y)
 df = f[1] - f[0]
 dl = 0.500*0.500*df*1000
-plotCombinedFigures(x, y, w, s, left=300, right=800, title="Laser HeNe 3, resolution {0:0.2f} nm".format(dl))
+plotCombinedFigures(x, y, w, s, left=300, right=800, title="Laser He-Ne, resolution {0:0.2f} nm".format(dl))
 
 (x, y) = read_from_file("lum_blanche_0.txt")
 (w, f, s) = fourierTransformInterferogram(x,y)
@@ -184,25 +184,25 @@ dl = 0.500*0.500*df*1000
 (w, f, s) = fourierTransformInterferogram(x,y)
 df = f[1] - f[0]
 dl = 0.500*0.500*df*1000
-plotCombinedFigures(x, y, w, s, left=0, right=1000, title="Lumière blanche 6, resolution {0:0.2f} nm".format(dl))
+plotCombinedFigures(x, y, w, s, left=0, right=1300, title="Lumière blanche, resolution {0:0.2f} nm".format(dl))
 
 (x, y) = read_from_file("lum_sodium_1.txt")
 (w, f, s) = fourierTransformInterferogram(x,y)
 df = f[1] - f[0]
 dl = 0.500*0.500*df*1000
-plotCombinedFigures(x, y, w, s, left=0, right=1000, title="Lumière sodium 1, resolution {0:0.2f} nm".format(dl))
+plotCombinedFigures(x, y, w, s, left=3900, right=10000, title="Lumière sodium, resolution {0:0.2f} nm".format(dl))
 
 (x, y) = read_from_file("lum_mercure_1.txt")
 (w, f, s) = fourierTransformInterferogram(x,y)
 df = f[1] - f[0]
 dl = 0.500*0.500*df*1000
-plotCombinedFigures(x, y, w, s, left=100, right=800, title="Lumière Hg 1, resolution {0:0.2f} nm".format(dl))
+#plotCombinedFigures(x, y, w, s, left=100, right=800, title="Lumière Hg 1, resolution {0:0.2f} nm".format(dl))
 
 (x, y) = read_from_file("lum_mercure_2.txt")
 (w, f, s) = fourierTransformInterferogram(x,y)
 df = f[1] - f[0]
 dl = 0.500*0.500*df*1000
-plotCombinedFigures(x, y, w, s, left=100, right=800, title="Lumière Hg 2, resolution {0:0.2f} nm".format(dl))
+plotCombinedFigures(x, y, w, s, left=100, right=800, title="Lumière au mercure, resolution {0:0.2f} nm".format(dl))
 
 (x, y) = read_from_file("lum_jaune_0.txt")
 (w, f, s) = fourierTransformInterferogram(x,y)
@@ -214,7 +214,7 @@ dl = 0.500*0.500*df*1000
 (w, f, s) = fourierTransformInterferogram(x,y)
 df = f[1] - f[0]
 dl = 0.500*0.500*df*1000
-plotCombinedFigures(x, y, w, s, left=100, right=800, title="Lumière jaune (Meriem), resolution {0:0.2f} nm".format(dl))
+plotCombinedFigures(x, y, w, s, left=100, right=800, title="Lumière jaune, resolution {0:0.2f} nm".format(dl))
 
 
 plt.show() #J: À la fin pour afficher tous les graphiques en même temps
