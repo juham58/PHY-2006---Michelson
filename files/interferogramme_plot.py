@@ -22,7 +22,8 @@ def read_from_file(filename):
 	y = file[:, 2]
 	return (x, y)  # J: J'ai chamgé la fonction np.loadtxt par la fonction np.genfromtxt (plus efficace)
 
-def plot_ocean_optics(filename, title, left, right):
+def plot_ocean_optics(filename, title, left, right):#Il les fichiers sont préalablement modifiés pour changer
+	# toutes les virgules en points.(ctrl+f) Normalement il est préférable d'enlever les header et footer avec la fonction
 	file = np.genfromtxt(filename)
 	plt.figure(figsize=(10,7))
 	#plt.title("{}".format(title))
@@ -34,6 +35,8 @@ plot_ocean_optics("autre_lampe_sodium_faible.txt", "Ocean Optics lampe sodium fa
 plot_ocean_optics("autre_lampe_sodium_forte.txt", "Ocean Optics lampe sodium forte", 400, 900)
 plot_ocean_optics("autre_Lazer_He_Ne.txt", "Ocean Optics laser He-Ne", 400, 700)
 plot_ocean_optics("autre_lumiere_blanche.txt", "Ocean Optics lumiere blanche", 200, 900)
+plot_ocean_optics("oceanHG.txt", "Ocean Optics merccure", 200, 700)
+plot_ocean_optics("oceanjaune.txt", "Ocean Optics blanche filtre jaune", 400, 700)
 
 def fourierTransformInterferogram(x,y):
 	""" A partir du tableau de valeurs Y correspondant a l'abscisse X,
@@ -86,7 +89,13 @@ plotCombinedFigures(x, y, w, s, left=0, right=1300, title="Lumière blanche, res
 (w, f, s) = fourierTransformInterferogram(x,y)
 df = f[1] - f[0]
 dl = 0.500*0.500*df*1000
-plotCombinedFigures(x, y, w, s, left=3900, right=10000, title="Lumière sodium, resolution {0:0.2f} nm".format(dl))
+plotCombinedFigures(x, y, w, s, left=3900, right=10000, title="Lumière sodium 1, resolution {0:0.2f} nm".format(dl))
+
+(x, y) = read_from_file("lum_sodium_2.txt")
+(w, f, s) = fourierTransformInterferogram(x,y)
+df = f[1] - f[0]
+dl = 0.500*0.500*df*1000
+plotCombinedFigures(x, y, w, s, left=200, right=1000, title="Lumière sodium, resolution {0:0.2f} nm".format(dl))
 
 (x, y) = read_from_file("lum_mercure_2.txt")
 (w, f, s) = fourierTransformInterferogram(x,y)
