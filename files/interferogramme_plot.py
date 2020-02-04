@@ -17,14 +17,15 @@ def read_from_file(filename):
 def plot_ocean_optics(filename, title, left, right):
 	file = np.genfromtxt(filename)
 	plt.figure(figsize=(10,7))
-	plt.title("{}".format(title))
+	#plt.title("{}".format(title))
+	plt.xlabel("Longueur d'onde (nm)")
 	plt.plot(file[:,0],file[:,1])
 	plt.xlim(left=left, right=right)
 
-plot_ocean_optics("autre_lampe_sodium_faible.txt", "Ocean Optics lampe sodium faible", 580, 600)
+plot_ocean_optics("autre_lampe_sodium_faible.txt", "Ocean Optics lampe sodium faible", 400, 700)
 plot_ocean_optics("autre_lampe_sodium_forte.txt", "Ocean Optics lampe sodium forte", 400, 900)
-plot_ocean_optics("autre_Lazer_He_Ne.txt", "Ocean Optics laser He-Ne", 400, 900)
-plot_ocean_optics("autre_lumiere_blanche.txt", "Ocean Optics lumiere blanche", 400, 900)
+plot_ocean_optics("autre_Lazer_He_Ne.txt", "Ocean Optics laser He-Ne", 400, 700)
+plot_ocean_optics("autre_lumiere_blanche.txt", "Ocean Optics lumiere blanche", 200, 900)
 
 def generateHeNeInterferogram(xMin, xMax, N):
 	""" Genere un tableau de N valeurs equidistantes enntre xMin et xMax.
