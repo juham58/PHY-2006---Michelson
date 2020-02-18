@@ -28,6 +28,7 @@ def plot_ocean_optics(filename, title, left, right):#Il les fichiers sont préal
 	plt.figure(figsize=(10,7))
 	#plt.title("{}".format(title))
 	plt.xlabel("Longueur d'onde (nm)")
+	plt.ylabel("Intensité")
 	plt.plot(file[:,0],file[:,1])
 	plt.xlim(left=left, right=right)
 
@@ -64,11 +65,15 @@ def plotCombinedFigures(x, y, w, s, title="", left=400, right=800):
 	On met l'interferogramme et le spectre sur la meme page.
 	"""
 	fig, (axes, axesFFT) = plt.subplots(2,1,figsize=(10, 10))
+	plt.subplots_adjust(hspace=0.31)
 	axes.plot(x, y, '-m')
 	axes.set_title("Interferogramme")
+	axes.set_xlabel("Déplacement du miroir 1 [µm]")
+	axes.set_ylabel("Voltage [mV]")
 	axesFFT.plot(w*1000, abs(s), '.-m')
 	axesFFT.set_xlim(left=left, right=right)
 	axesFFT.set_xlabel("Longueur d'onde [nm]")
+	axesFFT.set_ylabel("Intensité")
 	axesFFT.set_title(title)
 
 
