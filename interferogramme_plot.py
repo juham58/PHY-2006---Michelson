@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from numpy.fft import *
+from pathlib import Path # Permet de gérer les emplacements exacts des fichiers
 
 """ Ce script fait la transformée de Fourier d'un fichier de données obtenu lors du laboratoire de l'Interféromètre
 de Michelson fait dans le cours PHY-2006 - Optique expérimentale.
@@ -17,14 +18,14 @@ Ocean Optics utilisé en laboratoire comme référence.
 """
 
 def read_from_file(filename):
-	file = np.genfromtxt(filename, skip_header=18, skip_footer=1)
+	file = np.genfromtxt(str(Path.cwd()/"files"/filename), skip_header=18, skip_footer=1)
 	x = file[:, 1]
 	y = file[:, 2]
 	return (x, y)  # J: J'ai chamgé la fonction np.loadtxt par la fonction np.genfromtxt (plus efficace)
 
 def plot_ocean_optics(filename, title, left, right):#Il les fichiers sont préalablement modifiés pour changer
 	# toutes les virgules en points.(ctrl+f) Normalement il est préférable d'enlever les header et footer avec la fonction
-	file = np.genfromtxt(filename)
+	file = np.genfromtxt(str(Path.cwd()/"files"/filename))
 	plt.figure(figsize=(10,7))
 	#plt.title("{}".format(title))
 	plt.xlabel("Longueur d'onde (nm)")
