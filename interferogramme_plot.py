@@ -77,43 +77,19 @@ def plotCombinedFigures(x, y, w, s, title="", left=400, right=800):
 	axesFFT.set_ylabel("Intensité")
 	axesFFT.set_title(title)
 
+def graph_mesure_et_fft(nom_fichier, lim_gauche, lim_droite, titre):
+	(x, y) = read_from_file(nom_fichier)
+	(w, f, s) = fourierTransformInterferogram(x,y)
+	df = f[1] - f[0]
+	dl = 0.500*0.500*df*1000
+	plotCombinedFigures(x, y, w, s, left=lim_gauche, right=lim_droite, title="{1}, resolution {0:0.2f} nm".format(dl, titre))
 
-
-(x, y) = read_from_file("laser_he_ne_3.txt")
-(w, f, s) = fourierTransformInterferogram(x,y)
-df = f[1] - f[0]
-dl = 0.500*0.500*df*1000
-plotCombinedFigures(x, y, w, s, left=300, right=800, title="Laser He-Ne, resolution {0:0.2f} nm".format(dl))
-
-(x, y) = read_from_file("lum_blanche_6.txt")
-(w, f, s) = fourierTransformInterferogram(x,y)
-df = f[1] - f[0]
-dl = 0.500*0.500*df*1000
-plotCombinedFigures(x, y, w, s, left=0, right=1300, title="Lumière blanche, resolution {0:0.2f} nm".format(dl))
-
-(x, y) = read_from_file("lum_sodium_1.txt")
-(w, f, s) = fourierTransformInterferogram(x,y)
-df = f[1] - f[0]
-dl = 0.500*0.500*df*1000
-plotCombinedFigures(x, y, w, s, left=3900, right=10000, title="Lumière sodium 1, resolution {0:0.2f} nm".format(dl))
-
-(x, y) = read_from_file("lum_sodium_2.txt")
-(w, f, s) = fourierTransformInterferogram(x,y)
-df = f[1] - f[0]
-dl = 0.500*0.500*df*1000
-plotCombinedFigures(x, y, w, s, left=200, right=1000, title="Lumière sodium, resolution {0:0.2f} nm".format(dl))
-
-(x, y) = read_from_file("lum_mercure_2.txt")
-(w, f, s) = fourierTransformInterferogram(x,y)
-df = f[1] - f[0]
-dl = 0.500*0.500*df*1000
-plotCombinedFigures(x, y, w, s, left=100, right=800, title="Lumière au mercure, resolution {0:0.2f} nm".format(dl))
-
-(x, y) = read_from_file("autre_jaune.txt")
-(w, f, s) = fourierTransformInterferogram(x,y)
-df = f[1] - f[0]
-dl = 0.500*0.500*df*1000
-plotCombinedFigures(x, y, w, s, left=100, right=800, title="Lumière jaune, resolution {0:0.2f} nm".format(dl))
+graph_mesure_et_fft("laser_he_ne_3.txt", 300, 800, "Laser He-Ne")
+graph_mesure_et_fft("lum_blanche_6.txt", 0, 1300, "Lumière blanche")
+graph_mesure_et_fft("lum_sodium_1.txt", 3900, 10000, "Lumière sodium longue mesure")
+graph_mesure_et_fft("lum_sodium_2.txt", 200, 1000, "Lumière sodium courte mesure")
+graph_mesure_et_fft("lum_mercure_2.txt", 100, 800, "Lumière mercure")
+graph_mesure_et_fft("autre_jaune.txt", 100, 800, "Lumière jaune")
 
 
 plt.show() #J: À la fin pour afficher tous les graphiques en même temps
